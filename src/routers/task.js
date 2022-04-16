@@ -25,7 +25,7 @@ router.get('/tasks',auth, async (req, res) => {
     if (req.query.sort) {
         const parts = req.query.sort.split(':')
         sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
-        console.log(`sort: ${JSON.stringify(sort)}`)
+        // console.log(`sort: ${JSON.stringify(sort)}`)
     }
     try {
         const limit = parseInt(req.query.limit)

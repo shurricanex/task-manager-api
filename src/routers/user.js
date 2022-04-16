@@ -2,11 +2,13 @@ const express = require('express')
 const User = require('../models/user')
 const auth = require('../middleware/auth')
 const multer = require('multer')
+
 const { sendEmail, sendFarewellEmail } = require('../emails/account')
 const router = new express.Router()
+const sharp = require('sharp')
 router.post('/users', async (req, res) => {
     const user = new User(req.body)
-    console.log(`request body ${user}`)
+    // console.log(`request body ${user}`)
     try {
         await user.save();
         sendEmail(user.email,user.name)
@@ -60,11 +62,13 @@ router.patch('/users/me',auth, async (req, res) => {
         res.status(400).send(e)
     }
 })
-const uploadhandler = multer({
+const upload = multer({
+
     dest: 'avatar',
     limits: {
-        fileSize: 1000000
+        fileSize: 1000000000
     },
+    storage: multer.memoryStorage(),
     fileFilter (req,file,cb) {
         if (!file.originalname.match(/\.(jpeg|jpg|png)$/)) {
             cb(new Error('file must be extension of jpeg, jpg, png'))
@@ -72,12 +76,23 @@ const uploadhandler = multer({
         cb(undefined,true)
     }
 })
-router.post('/users/me/avatar', uploadhandler.single('avatar'), (req,res) => {
-    res.send('uploaded')
-}, (error,req,res,next) => {
-    res.status(400).send({error: error.message})
-})
+// router.post('/users/me/avatar', uploadhandler.single('avatar'), async (req,res) => {
+//     const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer()
+//     req.user.avatar = buffer
+//     await req.user.save()
+//     res.send(req.user)
 
+// }, (error,req,res,next) => {
+//     res.status(400).send({error: error.message})
+// })
+router.post('/users/me/avatar', auth, upload.single('avatar'),  async (req, res) => {
+    const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer()
+    req.user.avatar = buffer
+    await req.user.save(req.user)
+    res.send()
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
+})
 router.delete('/users/me',auth, async (req,res) => {
     try{
         const user = req.user;
@@ -106,7 +121,7 @@ router.post('/users/logout', auth, async (req, res) => {
 
         const user = req.user;
         const tokens = user.tokens.filter(token => token.token !== req.token);
-        console.log(`tokens: ${tokens}`);
+        // console.log(`tokens: ${tokens}`);
         user.tokens = tokens;
         await user.save();
         res.send('logged out')
