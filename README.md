@@ -1,3 +1,3 @@
 # task-manager-api
 This is a learning journey documentation of Task manager API from The Complete Node.js Developer Course (3rd Edition) by andrew on Udemy
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/4df29684a20ffcd849db?action=collection%2Fimport#?env%5BTask%20Manager%20API%20(prod)%5D=W3sia2V5IjoidXJsIiwidmFsdWUiOiIiLCJlbmFibGVkIjp0cnVlLCJzZXNzaW9uVmFsdWUiOiJodHRwczovL3NodXJyaWNhbmV4LXRhc2stbWFuYWdlci5oZXJva3VhcHAuY29tIiwic2Vzc2lvbkluZGV4IjowfSx7ImtleSI6ImF1dGhUb2tlbiIsInZhbHVlIjoiIiwiZW5hYmxlZCI6dHJ1ZSwic2Vzc2lvblZhbHVlIjoiZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmZhV1FpT2lJMk1XTXdOVEUxTlRnNFltWXhNekF3TVRabU1XSXdOMllpTENKcFlYUWlPakUyTmpFd01USTJOeko5LlB3MGExbDVrLWtCekpjS1lCVzBJVEhMc0tLcXlQR20uLi4iLCJzZXNzaW9uSW5kZXgiOjF9XQ==)
+
